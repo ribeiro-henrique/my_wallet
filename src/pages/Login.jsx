@@ -69,6 +69,7 @@ class Login extends React.Component {
           />
         </label>
         <button
+          type="button"
           disabled={ disableBtn }
           onClick={ this.handleWallet }
         >
