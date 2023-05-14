@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { walletFetch } from '../redux/actions';
+import { walletCurrencies } from '../redux/actions';
 
 class WalletForm extends Component {
   componentDidMount() {
     const { currencies } = this.props;
     const { dispatch } = this.props;
-    dispatch(walletFetch(currencies));
+    dispatch(walletCurrencies(currencies));
   }
 
   render() {
