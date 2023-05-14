@@ -8,15 +8,15 @@ export const addEmail = (email) => ({
   payload: email,
 });
 
-export const walletFetch = (currencies) => ({
+export const walletFetch = (filteredCoins) => ({
   type: WALLET_FETCH,
-  payload: currencies,
+  payload: filteredCoins,
 });
 
 export const walletCurrencies = () => async (dispatch) => {
-  const USDT = 'USDT';
+  /* const USDT = 'USDT'; */
   const URL = await fetch('https://economia.awesomeapi.com.br/json/all');
   const results = await URL.json();
-  const filteredCoins = Object.keys(results).filter((k) => k !== USDT);
+  const filteredCoins = Object.keys(results).filter((k) => k !== 'USDT');
   dispatch(walletFetch(filteredCoins));
 };
