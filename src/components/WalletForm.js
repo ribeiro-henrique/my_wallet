@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { walletCurrencies, expensesWallet } from '../redux/actions';
+import { walletCurrencies, getExpensesWallet } from '../redux/actions';
 
 class WalletForm extends Component {
   state = {
+    id: 0,
     value: '',
-    currrency: 'EUR',
+    currency: 'EUR',
     method: '',
     tag: '',
     description: '',
   };
 
   componentDidMount() {
-    const { currencies } = this.props;
     const { dispatch } = this.props;
-    dispatch(walletCurrencies(currencies));
+    dispatch(walletCurrencies());
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -25,12 +25,17 @@ class WalletForm extends Component {
   };
 
   handleClick = () => {
-
+    const { dispatch } = this.props;
+    this.setState((prevState) => ({ // pegar um initial state zerado
+      ...prevState,
+      id: prevState.id + 1,
+    }));
+    return dispatch(getExpensesWallet(this.state));
   };
 
   render() {
     const { currencies } = this.props;
-    const { value, currrency, method, tag, description } = this.state;
+    const { value, currency, method, tag, description } = this.state;
     return (
       <form>
         <input
@@ -38,6 +43,7 @@ class WalletForm extends Component {
           type="text"
           value={ value }
           name="value"
+          onChange={ this.handleChange }
           placeholder="Valor gasto"
         />
         <br />
@@ -57,7 +63,7 @@ class WalletForm extends Component {
             data-testid="currency-input"
             onChange={ this.handleChange }
             id="coins-select"
-            value={ currrency }
+            value={ currency }
             name="currency"
           >
             {
@@ -84,19 +90,16 @@ class WalletForm extends Component {
             name="method"
           >
             <option
-              name="Dinheiro"
               value="Dinheiro"
             >
               Dinheiro
             </option>
             <option
-              name="Cartão de crédito"
               value="Cartão de crédito"
             >
               Cartão de crédito
             </option>
             <option
-              name="Cartão de débito"
               value="Cartão de débito"
             >
               Cartão de débito
@@ -115,31 +118,26 @@ class WalletForm extends Component {
             value={ tag }
           >
             <option
-              name="Alimentação"
               value="Alimentação"
             >
               Alimentação
             </option>
             <option
-              name="Lazer"
               value="Lazer"
             >
               Lazer
             </option>
             <option
-              name="Trabalho"
               value="Trabalho"
             >
               Trabalho
             </option>
             <option
-              name="Transporte"
               value="Transporte"
             >
               Transporte
             </option>
             <option
-              name="Saúde"
               value="Saúde"
             >
               Saúde
