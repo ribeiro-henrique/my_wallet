@@ -1,6 +1,7 @@
 // ACTIONS TYPES
 export const ADD_EMAIL = 'ADD_EMAIL';
 export const WALLET_FETCH = 'WALLET_FETCH ';
+export const EXPENSES_WALLET = 'EXPENSES_WALLET';
 
 // ACTIONS CREATORS
 export const addEmail = (email) => ({
@@ -11,6 +12,11 @@ export const addEmail = (email) => ({
 export const walletFetch = (filteredCoins) => ({
   type: WALLET_FETCH,
   payload: filteredCoins,
+});
+
+export const expensesWallet = (expense) => ({
+  type: EXPENSES_WALLET,
+  payload: expense,
 });
 
 export const walletCurrencies = () => async (dispatch) => {
