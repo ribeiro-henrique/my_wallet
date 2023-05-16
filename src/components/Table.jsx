@@ -60,10 +60,10 @@ class Table extends Component {
                   { e.exchangeRates[e.currency].name}
                 </td>
                 <td>
-                  { Number(e.exchangeRates[e.currency].ask) }
+                  { Number(e.exchangeRates[e.currency].ask).toFixed(2) }
                 </td>
                 <td>
-                  { Number(e.value * e.exchangeRates[e.currency].ask).toFixed(2) }
+                  {(e.value * e.exchangeRates[e.currency].ask).toFixed(2)}
                 </td>
                 <td>
                   Real
@@ -86,7 +86,9 @@ const mapStateToProps = (state) => ({
 });
 
 Table.propTypes = {
-  expenses: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape({
+    currency: PropTypes.string,
+  })).isRequired,
 };
 
 export default connect(mapStateToProps)(Table);

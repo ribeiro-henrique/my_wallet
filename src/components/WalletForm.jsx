@@ -8,8 +8,8 @@ class WalletForm extends Component {
     id: 0,
     value: '',
     currency: 'USD',
-    method: '',
-    tag: '',
+    method: 'Dinheiro',
+    tag: 'Alimentação',
     description: '',
   };
 
@@ -27,8 +27,8 @@ class WalletForm extends Component {
   handleClick = () => {
     const { dispatch } = this.props;
     this.setState((prevState) => ({ // pegar um initial state zerado
-      value: '',
-      method: '',
+      value: '0',
+      method: 'Dinheiro',
       currency: 'USD',
       tag: '',
       description: '',
