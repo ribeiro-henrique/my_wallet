@@ -30,7 +30,7 @@ describe('Trying to get the max tests coverage', () => {
     });
     expect(getBtn).toBeDisabled();
   });
-  it('Verifica os inputs com valores diversos', () => {
+  it('Verifica os inputs com valores incorretos', () => {
     renderWithRouterAndRedux(<App />);
 
     const typeEmail = 'testeToBeFail';
@@ -70,10 +70,15 @@ describe('Trying to get the max tests coverage', () => {
     const getBtn = screen.getByRole('button', {
       name: /entrar/i,
     });
-
+    expect(getBtn).toBeEnabled();
     userEvent.click(getBtn);
 
     const { pathname } = history.location;
     expect(pathname).toBe('/carteira');
+
+    const getUser = screen.getByRole('heading', {
+      name: /bem vindo: hesr\.ribeiro@gmail\.com/i,
+    });
+    expect(getUser).toBeInTheDocument();
   });
 });
