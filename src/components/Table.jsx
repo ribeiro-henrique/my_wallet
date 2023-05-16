@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -83,5 +84,9 @@ class Table extends Component {
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
+
+Table.propTypes = {
+  expenses: PropTypes.string.isRequired,
+};
 
 export default connect(mapStateToProps)(Table);
