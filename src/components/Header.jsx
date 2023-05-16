@@ -8,7 +8,7 @@ class Header extends React.Component {
 
     const accExp = expenses.reduce((acc, arr) => (
       acc + (
-        Number(arr.value) * Number(arr.exchangeRates[arr.currency].ask)
+        Number(arr.value) * Number(arr.exchangeRates[arr.currency].ask) // lógica feita na mentoria do Joel
       )
     ), 0);
 
