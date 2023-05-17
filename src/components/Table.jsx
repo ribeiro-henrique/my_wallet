@@ -42,7 +42,7 @@ class Table extends Component {
               Moeda de conversão
             </th>
             <th>
-              Editar
+              Editar/Excluir
             </th>
           </tr>
         </thead>
@@ -74,10 +74,12 @@ class Table extends Component {
                 <td>
                   Real
                 </td>
-                <button>
-                  Editar
-                </button>
                 <td>
+                  <button
+                    type="button"
+                  >
+                    Editar
+                  </button>
                   <button
                     type="button"
                     data-testid="delete-btn"
