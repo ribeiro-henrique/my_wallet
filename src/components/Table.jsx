@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Table extends Component {
+  handleClick = () => {
+    const { dispatch } = this.props;
+  };
+
   render() {
     const { expenses } = this.props;
     console.log(expenses);
@@ -36,7 +40,7 @@ class Table extends Component {
               Moeda de conversão
             </th>
             <th>
-              Editar/Excluir
+              Editar
             </th>
           </tr>
         </thead>
@@ -68,13 +72,19 @@ class Table extends Component {
                 <td>
                   Real
                 </td>
-                <td>
+                <button>
                   Editar
-                </td>
-
+                </button>
+                <button
+                  data-testid="delete-btn"
+                  onClick={ this.handleClick }
+                >
+                  Excluir
+                </button>
               </tr>
             ))
           }
+
         </tbody>
       </table>
     );

@@ -27,10 +27,10 @@ class WalletForm extends Component {
   handleClick = () => {
     const { dispatch } = this.props;
     this.setState((prevState) => ({ // pegar um initial state zerado
-      value: '0',
+      value: '',
       method: 'Dinheiro',
       currency: 'USD',
-      tag: '',
+      tag: 'Alimentação',
       description: '',
       id: prevState.id + 1,
     }));
