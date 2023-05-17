@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { walletCurrencies, getExpensesWallet } from '../redux/actions';
+import {
+  walletCurrencies, getExpensesWallet, saveEditedExpenses } from '../redux/actions';
+
+const ALIMENTACAO = 'Alimentação';
 
 class WalletForm extends Component {
   state = {
@@ -9,13 +12,31 @@ class WalletForm extends Component {
     value: '',
     currency: 'USD',
     method: 'Dinheiro',
-    tag: 'Alimentação',
+    tag: ALIMENTACAO,
     description: '',
+    edited: false,
   };
+
+  // usar o componentDidUpdate no meu walletForm
 
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(walletCurrencies());
+  }
+
+  componentDidUpdate() {
+    const { edited } = this.state;
+    const { editor, expenses, idToEdit } = this.props;
+    if (editor && !edited) {
+      this.setState({
+        value: expenses[idToEdit].value,
+        description: expenses[idToEdit].description,
+        currency: expenses[idToEdit].currency,
+        method: expenses[idToEdit].method,
+        tag: expenses[idToEdit].tag,
+        edited: true,
+      });
+    }
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -30,16 +51,46 @@ class WalletForm extends Component {
       value: '',
       method: 'Dinheiro',
       currency: 'USD',
-      tag: 'Alimentação',
+      tag: ALIMENTACAO,
       description: '',
       id: prevState.id + 1,
     }));
-    console.log(this.state);
-    return dispatch(getExpensesWallet(this.state));
+    const dispatchState = {
+      ...this.state,
+    };
+    delete dispatchState.edited;
+    // console.log(this.state);
+    return dispatch(getExpensesWallet(dispatchState));
+  };
+
+  handleEdit = (id) => {
+    const { dispatch, expenses } = this.props;
+    const { value, currency, method, tag, description } = this.state;
+    const accExpenses = {
+      id,
+      value,
+      currency,
+      method,
+      tag,
+      description,
+      exchangeRates: expenses[id].exchangeRates, // garantir a atualidade do fetch
+    };
+    const newExpenses = expenses
+      .map((e) => (e.id === id ? accExpenses : e)); // muda os valores do meu id específico
+    dispatch(saveEditedExpenses(newExpenses));
+    this.setState({
+      id: 0,
+      value: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: ALIMENTACAO,
+      description: '',
+      edited: false,
+    });
   };
 
   render() {
-    const { currencies } = this.props;
+    const { currencies, editor, idToEdit } = this.props;
     const { value, currency, method, tag, description } = this.state;
     return (
       <form>
@@ -151,24 +202,41 @@ class WalletForm extends Component {
         </label>
         <br />
         <br />
-        <button
-          type="button"
-          onClick={ this.handleClick }
-        >
-          Adicionar despesa
-        </button>
+        {
+          editor ? (
+            <button
+              type="button"
+              onClick={ () => this.handleEdit(idToEdit) } // vou passar param, name
+            >
+              Editar despesa
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={ this.handleClick }
+            >
+              Adicionar despesa
+            </button>
+          )
+        }
+
       </form>
     );
   }
 }
+
+// implementar lógica para alternar entre os btn através do valor do editor
 
 WalletForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 }.isRequired;
 
-const mapStateToProps = (state) => ({
-  currencies: state.wallet.currencies,
+const mapStateToProps = ({ wallet: { currencies, editor, expenses, idToEdit } }) => ({
+  currencies,
+  idToEdit,
+  editor,
+  expenses,
 });
 
 export default connect(mapStateToProps)(WalletForm);

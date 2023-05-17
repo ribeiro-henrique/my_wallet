@@ -3,6 +3,8 @@ export const ADD_EMAIL = 'ADD_EMAIL';
 export const WALLET_FETCH = 'WALLET_FETCH ';
 export const EXPENSES_WALLET = 'EXPENSES_WALLET';
 export const REMOVE_EXPENSES = 'REMOVE_EXPENSES';
+export const EDIT_EXPENSES = 'EDIT_EXPENSES';
+export const SAVE_EDITED = 'SAVE_EDITED';
 
 // ACTIONS CREATORS
 export const addEmail = (email) => ({
@@ -44,5 +46,17 @@ export const getExpensesWallet = (stateWalletForm) => async (dispatch) => { // a
 
 export const removeExpensesTable = (payload) => ({
   type: REMOVE_EXPENSES,
+  payload,
+});
+
+// divisória req 9
+
+export const editExpenses = (payload) => ({
+  type: EDIT_EXPENSES,
+  payload,
+});
+
+export const saveEditedExpenses = (payload) => ({
+  type: SAVE_EDITED,
   payload,
 });

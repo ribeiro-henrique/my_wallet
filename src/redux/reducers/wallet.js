@@ -1,4 +1,6 @@
-import { WALLET_FETCH, EXPENSES_WALLET, REMOVE_EXPENSES } from '../actions';
+import {
+  WALLET_FETCH, EXPENSES_WALLET, REMOVE_EXPENSES, EDIT_EXPENSES, SAVE_EDITED,
+} from '../actions';
 
 const INITIAL_STATE_WALLET = {
   currencies: [], // array de string
@@ -23,6 +25,19 @@ const wallet = (state = INITIAL_STATE_WALLET, action) => {
     return {
       ...state,
       expenses: state.expenses.filter((expense) => expense.id !== action.payload),
+    };
+  case EDIT_EXPENSES:
+    return {
+      ...state,
+      editor: true,
+      idToEdit: action.payload, // procurar meu id em expenses
+    };
+  case SAVE_EDITED:
+    return {
+      ...state,
+      editor: false,
+      idToEdit: 0,
+      expenses: [...action.payload],
     };
   default:
     return state;
