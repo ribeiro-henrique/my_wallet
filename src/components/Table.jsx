@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { removeExpensesTable } from '../redux/actions';
 
 class Table extends Component {
-  handleClick = () => {
+  handleClick = (id) => {
     const { dispatch } = this.props;
+    dispatch(removeExpensesTable(id));
   };
 
   render() {
@@ -75,12 +77,15 @@ class Table extends Component {
                 <button>
                   Editar
                 </button>
-                <button
-                  data-testid="delete-btn"
-                  onClick={ this.handleClick }
-                >
-                  Excluir
-                </button>
+                <td>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ () => this.handleClick(e.id) } // evita que a func seja chamada diretamente ao carregar
+                  >
+                    Excluir
+                  </button>
+                </td>
               </tr>
             ))
           }
@@ -96,6 +101,7 @@ const mapStateToProps = (state) => ({
 });
 
 Table.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.shape({
     currency: PropTypes.string,
   })).isRequired,

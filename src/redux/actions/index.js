@@ -2,6 +2,7 @@
 export const ADD_EMAIL = 'ADD_EMAIL';
 export const WALLET_FETCH = 'WALLET_FETCH ';
 export const EXPENSES_WALLET = 'EXPENSES_WALLET';
+export const REMOVE_EXPENSES = 'REMOVE_EXPENSES';
 
 // ACTIONS CREATORS
 export const addEmail = (email) => ({
@@ -38,3 +39,10 @@ export const getExpensesWallet = (stateWalletForm) => async (dispatch) => { // a
   const results = await URL.json();
   dispatch(setExpensesWallet({ ...stateWalletForm, exchangeRates: results }));
 };
+
+// divisória req 8
+
+export const removeExpensesTable = (payload) => ({
+  type: REMOVE_EXPENSES,
+  payload,
+});
