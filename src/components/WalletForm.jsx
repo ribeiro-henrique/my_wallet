@@ -91,9 +91,9 @@ class WalletForm extends Component {
 
   render() {
     const { currencies, editor, idToEdit } = this.props;
-    const { value, currency, method, tag, description } = this.state;
+    const { value, currency, method, tag } = this.state;
     return (
-      <form>
+      <form className="bg-gray-100 p-4">
         <input
           data-testid="value-input"
           type="text"
@@ -101,15 +101,7 @@ class WalletForm extends Component {
           name="value"
           onChange={ this.handleChange }
           placeholder="Valor gasto"
-        />
-        <br />
-        <input
-          data-testid="description-input"
-          onChange={ this.handleChange }
-          type="text"
-          value={ description }
-          name="description"
-          placeholder="Descrição dos gastos"
+          className="block mb-2 p-2 border border-gray-300 rounded"
         />
         <br />
         <label htmlFor="coins-select">
@@ -206,7 +198,10 @@ class WalletForm extends Component {
           editor ? (
             <button
               type="button"
-              onClick={ () => this.handleEdit(idToEdit) } // vou passar param, name
+              onClick={ () => this.handleEdit(idToEdit) }
+              className={ `bg-indigo-600 text-white p-2 rounded ${
+                editor ? 'block' : 'hidden'
+              }` }
             >
               Editar despesa
             </button>
@@ -214,6 +209,9 @@ class WalletForm extends Component {
             <button
               type="button"
               onClick={ this.handleClick }
+              className={ `bg-indigo-600 text-white p-2 rounded ${
+                editor ? 'hidden' : 'block'
+              }` }
             >
               Adicionar despesa
             </button>

@@ -8,29 +8,28 @@ class Header extends React.Component {
 
     const accExp = expenses.reduce((acc, arr) => (
       acc + (
-        Number(arr.value) * Number(arr.exchangeRates[arr.currency].ask) // lógica feita na mentoria do Joel
+        Number(arr.value) * Number(arr.exchangeRates[arr.currency].ask)
       )
     ), 0);
 
     const accExpFixed = accExp.toFixed(2);
 
     return (
-      <header>
+      <header className="bg-indigo-600 text-white p-4">
         <article>
-          <h3 data-testid="email-field">
+          <h3 data-testid="email-field" className="text-xl font-bold">
             Bem vindo:
             {' '}
-            { userEmail }
-
+            {userEmail}
           </h3>
           <section>
             Total de despesas:
-            <h4 data-testid="total-field">
-              { accExpFixed }
+            <h4 data-testid="total-field" className="text-lg font-semibold">
+              {accExpFixed}
             </h4>
           </section>
           <section>
-            <h4 data-testid="header-currency-field">
+            <h4 data-testid="header-currency-field" className="text-lg font-semibold">
               BRL
             </h4>
           </section>
@@ -47,6 +46,7 @@ const mapStateToProps = (state) => ({
 
 Header.propTypes = {
   userEmail: PropTypes.string.isRequired,
-}.isRequired;
+  expenses: PropTypes.array.isRequired,
+};
 
 export default connect(mapStateToProps)(Header);
