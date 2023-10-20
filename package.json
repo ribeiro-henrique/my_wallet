@@ -33,13 +33,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "test-coverage": "react-scripts test --coverage --watchAll=false",
-    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js,.jsx",
-    "lint:styles": "npx stylelint '**/*.css'"
+    "test-coverage": "react-scripts test --coverage --watchAll=false"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
+
   "browserslist": {
     "production": [
       ">0.2%",
@@ -61,9 +57,7 @@
     "mocha": "10.2.0",
     "mochawesome": "7.1.3",
     "mochawesome-merge": "4.2.2",
-    "mochawesome-report-generator": "6.2.0",
-    "stylelint": "14.16.1",
-    "stylelint-config-standard": "26.0.0"
+    "mochawesome-report-generator": "6.2.0"
   },
   "jest": {
     "coveragePathIgnorePatterns": [
